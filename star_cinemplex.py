@@ -34,15 +34,19 @@ class Hall(StarCinema):
         print('--------------------------------------------------')
     def book_seats(self, id, row_num, col_num):
         seat = (row_num, col_num)
+        match = False
         if id in self.seats:
             for row in range(self.row):
                 for col in range(self.col):
                     if row == row_num and col == col_num:
                         if self.seats[id][row][col] == 0:
-                            self.seats[id][row][col] == 1
-                    else:
-                        print('INVALID ROW COLUMN')
-                print()
+                            self.seats[id][row][col] = 1
+                            print('SEAT BOOKED SUCCESSFULLY!')
+                            match = True
+            if match == False:
+                print(f'{seat} SEAT IS NOT AVAILABLE')
+        else:
+            print(f'SHOW ID - {id} IS NOT VALID, TRY ANOTHER')
             
 
     def view_available_seats(self, id):
@@ -55,10 +59,10 @@ class Hall(StarCinema):
 
     
 
-h1 = Hall(5,5,1)
-h1.entry_show(111, 'JAWAN', '12/December/2023')
-h1.entry_show(232, 'Banglore Days', '12/December/2023')
-h1.entry_show(111, 'Spider Man', '12/December/2023')
+cineplex = Hall(5,5,1)
+cineplex.entry_show(111, 'IRON MAN', '12/December/2023')
+cineplex.entry_show(232, 'BAT MAN', '12/December/2023')
+cineplex.entry_show(111, 'SPIDER MAN', '12/December/2023')
 
 while True:
     print('1. VIEW ALL SHOW TODAY')
@@ -69,15 +73,15 @@ while True:
     
     choice = int(input())
     if choice == 1:
-        h1.view_show_list()
+        cineplex.view_show_list()
     if choice == 2:
         id = int(input('ENTER SHOW ID: '))
-        h1.view_available_seats(id)
+        cineplex.view_available_seats(id)
     if choice == 3:
         id = int(input('ENTER SHOW ID: '))
         row_num = int(input('ENTER ROW NUMBER: '))
         col_num = int(input('ENTER COLUMN NUMBER: '))
-        h1.book_seats(id, row_num, col_num)
+        cineplex.book_seats(id, row_num, col_num)
     if choice == 4:
         break
 
