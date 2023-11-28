@@ -9,38 +9,37 @@ class StarCinema:
         
 class Hall(StarCinema):
     def __init__(self, row, col, hall_no) -> None:
-        self.row=row
-        self.col=col
-        self.hall_no=hall_no
-        self.seats = {}
-        self.show_list = []
+        self.__row = row
+        self.__col = col
+        self.__hall_no = hall_no
+        self.__seats = {}
+        self.__show_list = []
         StarCinema.entry_hall(self)
         super().__init__()
     def entry_show(self, id, movie_name, time):
-        self.show_list.append((id, movie_name, time))
+        self.__show_list.append((id, movie_name, time))
         seats = []
-        for i in range(self.row):
+        for i in range(self.__row):
             row = []
-            for j in range(self.col):
+            for j in range(self.__col):
                 row.append(0)
             seats.append(row)
-        self.seats[id] = seats
-             
-        # self.seats[id] = [[0] * self.col for _ in range(self.row)]
+        self.__seats[id] = seats
+
     def view_show_list(self):
         print('--------------------------------------------------')
-        for show in self.show_list:
+        for show in self.__show_list:
             print(f'MOVIE NAME: {show[1]} ID: {show[0]} TIME: {show[2]}')
         print('--------------------------------------------------')
     def book_seats(self, id, row_num, col_num):
         seat = (row_num, col_num)
         match = False
-        if id in self.seats:
-            for row in range(self.row):
-                for col in range(self.col):
+        if id in self.__seats:
+            for row in range(self.__row):
+                for col in range(self.__col):
                     if row == row_num and col == col_num:
-                        if self.seats[id][row][col] == 0:
-                            self.seats[id][row][col] = 1
+                        if self.__seats[id][row][col] == 0:
+                            self.__seats[id][row][col] = 1
                             print('SEAT BOOKED SUCCESSFULLY!')
                             match = True
             if match == False:
@@ -50,9 +49,9 @@ class Hall(StarCinema):
             
 
     def view_available_seats(self, id):
-        if id in self.seats:
+        if id in self.__seats:
             print(f"Available Seats for Show {id}:")
-            for seat in self.seats[id]:
+            for seat in self.__seats[id]:
                 print(seat)    
         else:
             print(f"Show with ID {id} not found.")
